@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,25 +5,100 @@
   <title>Dashboard - SiteRat</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Inter', sans-serif;
-    }
-
+    /* (same styles as before, adjusted for consistency) */
     body {
       background-color: #0b0e1a;
-      background-image: 
+      background-image:
         linear-gradient(90deg, rgba(203,166,247,0.03) 1px, transparent 1px),
         linear-gradient(rgba(203,166,247,0.03) 1px, transparent 1px);
       background-size: 40px 40px;
       color: #cba6f7;
       height: 100vh;
-      backdrop-filter: blur(2px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+      font-family: 'Inter', sans-serif;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      text-shadow: 0 0 12px #cba6f799;
+      animation: glowPulse 3s ease-in-out infinite;
+      margin-bottom: 1rem;
+    }
+
+    .card {
+      background: rgba(21, 24, 39, 0.15);
+      border: 1px solid rgba(203, 166, 247, 0.25);
+      backdrop-filter: blur(10px);
+      border-radius: 16px;
+      padding: 2rem;
+      max-width: 600px;
+      width: 100%;
+      box-shadow: 0 0 40px 2px #cba6f733;
+      text-align: center;
+    }
+
+    .card p {
+      color: #9b9dc4;
+      margin-bottom: 1rem;
+    }
+
+    button {
+      background: #cba6f7;
+      color: #0b0e1a;
+      padding: 10px 16px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 0 10px #cba6f755;
+      font-weight: 600;
+      margin-top: 1rem;
+    }
+
+    button:hover {
+      background: #a28dbc;
+      color: #000;
+      transform: scale(1.02);
+      box-shadow: 0 0 12px #a28dbcaa;
+    }
+
+    @keyframes glowPulse {
+      0%, 100% {
+        text-shadow: 0 0 8px #cba6f799;
+      }
+      50% {
+        text-shadow: 0 0 16px #cba6f7dd;
+      }
     }
   </style>
 </head>
 <body>
+  <h1>Welcome to SiteRat 🐀</h1>
+  <div class="card">
+    <p>Hello, <strong><span id="usernameDisplay"></span></strong>! You are now logged in.</p>
+    <p>Here you can manage your account, settings, and more.</p>
+    <button onclick="logout()">Logout</button>
+  </div>
+
+  <script>
+    const loggedInUser = localStorage.getItem("siterat_loggedInUser");
+
+    if (!loggedInUser) {
+      // Not logged in? Redirect to login.
+      window.location.href = "login.html";
+    } else {
+      // Show username
+      document.getElementById("usernameDisplay").textContent = loggedInUser;
+    }
+
+    function logout() {
+      localStorage.removeItem("siterat_loggedInUser");
+      window.location.href = "login.html";
+    }
+  </script>
 </body>
 </html>
