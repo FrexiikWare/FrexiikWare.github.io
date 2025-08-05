@@ -145,6 +145,22 @@
       text-shadow: 0 0 5px #a28dbc;
     }
 
+    #message {
+      margin-top: 10px;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .error {
+      color: #ff6b6b;
+      text-shadow: 0 0 5px #ff6b6b88;
+    }
+
+    .success {
+      color: #98f5c9;
+      text-shadow: 0 0 5px #98f5c988;
+    }
+
     @keyframes fadeIn {
       from { opacity: 0; }
       to   { opacity: 1; }
@@ -181,12 +197,13 @@
       <input type="text" id="license" name="license" required />
     </div>
     <button type="submit">Register</button>
+    <p id="message"></p>
     <div class="separator"><span>OR</span></div>
     <p>Already have an account? <a href="index.html">Back to Login</a></p>
   </form>
 
   <script>
-    const validLicenseKeys = ["SR-AYPR-5183", "SR-TARO-8194", "SR-PAEI-3719"]; // Replace with your actual keys
+    const validLicenseKeys = ["SR-AYPR-2941", "SR-YAOR-5183", "SR-UPAW-3951"]; // Customize these
 
     document.getElementById('registerForm').addEventListener('submit', function(event) {
       event.preventDefault();
@@ -194,16 +211,19 @@
       const username = document.getElementById('username').value.trim();
       const password = document.getElementById('password').value.trim();
       const license = document.getElementById('license').value.trim();
+      const message = document.getElementById('message');
 
       if (!validLicenseKeys.includes(license)) {
-        alert("❌ Invalid license key!");
+        message.textContent = "❌ Invalid license key. Please try again.";
+        message.className = "error";
         return;
       }
 
-      // Simulate successful registration
-      alert(`✅ Registration successful for ${username}`);
-      // Redirect or clear form if desired
-      // window.location.href = "index.html";
+      message.textContent = `✅ Registration successful. Welcome, ${username}!`;
+      message.className = "success";
+
+      // Optional: redirect after success
+      // setTimeout(() => window.location.href = "index.html", 1500);
     });
   </script>
 </body>
