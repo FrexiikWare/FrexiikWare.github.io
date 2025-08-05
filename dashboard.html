@@ -97,12 +97,14 @@
       position: relative;
       padding: 2rem;
       background: linear-gradient(to bottom right, #2a0a4d, #1a032e);
+      overflow-y: auto;
     }
 
     .welcome {
       font-size: 2rem;
       font-weight: bold;
       color: #fff;
+      margin-bottom: 2rem;
     }
 
     .welcome span {
@@ -125,6 +127,76 @@
     .main-content {
       position: relative;
       z-index: 1;
+    }
+
+    /* Account Card */
+    .account-card {
+      background: #0e0918cc;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.5);
+      max-width: 600px;
+    }
+
+    .account-card h2 {
+      font-size: 1.3rem;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .account-username {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #1a032e;
+      padding: 10px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      font-size: 1rem;
+    }
+
+    .account-username img {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+    }
+
+    .section-title {
+      font-size: 0.95rem;
+      margin: 15px 0 8px;
+      color: #cba6f7;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .input-field {
+      width: 100%;
+      padding: 10px;
+      border-radius: 6px;
+      border: none;
+      background: #1a032e;
+      color: #fff;
+      margin-bottom: 10px;
+      font-size: 0.95rem;
+    }
+
+    .update-btn {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 6px;
+      background: #cba6f7;
+      color: #1a032e;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .update-btn:hover {
+      background: #b28cd1;
     }
 
   </style>
@@ -150,6 +222,29 @@
     <div class="background-effect"></div>
     <div class="main-content">
       <h1 class="welcome">Welcome, <span id="usernameDisplay">SiteRat</span></h1>
+      
+      <!-- Account Info Card -->
+      <div class="account-card">
+        <h2>Account Information</h2>
+
+        <!-- Username Display -->
+        <div class="account-username">
+          <img src="https://i.imgur.com/TNC09HC.png" alt="User Avatar">
+          <span id="accountUsername">SiteRat</span>
+        </div>
+
+        <!-- Discord Integration -->
+        <div class="section-title">Discord Integration</div>
+        <input type="text" placeholder="Enter your Discord ID (19 digits)" class="input-field">
+
+        <!-- Change Password -->
+        <div class="section-title">Change Password</div>
+        <input type="password" placeholder="Current Password" class="input-field">
+        <input type="password" placeholder="New Password" class="input-field">
+        <input type="password" placeholder="Confirm New Password" class="input-field">
+
+        <button class="update-btn">Update Password</button>
+      </div>
     </div>
   </div>
 
@@ -159,11 +254,12 @@
       window.location.href = "login.html";
     } else {
       document.getElementById("usernameDisplay").textContent = user;
+      document.getElementById("accountUsername").textContent = user;
     }
 
     function logout() {
       localStorage.removeItem("siterat_loggedInUser");
-      window.location.href = "login.html";
+      window.location.href = "index.html"; 
     }
   </script>
 
