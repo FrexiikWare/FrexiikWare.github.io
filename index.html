@@ -89,7 +89,6 @@
       box-shadow: 0 0 10px #cba6f755;
       font-weight: 600;
       width: 100%;
-      transition: transform 0.2s ease, box-shadow 0.3s ease;
     }
 
     button:hover {
@@ -97,28 +96,6 @@
       color: #000;
       transform: scale(1.02);
       box-shadow: 0 0 12px #a28dbcaa;
-    }
-
-    button:active {
-      transform: scale(0.98);
-    }
-
-    p {
-      margin-top: 1rem;
-      font-size: 0.9rem;
-      color: #999;
-    }
-
-    a {
-      color: #ead1dc;
-      text-decoration: none;
-      font-weight: 600;
-      transition: color 0.3s ease;
-    }
-
-    a:hover {
-      text-decoration: underline;
-      color: #cba6f7;
     }
 
     .separator {
@@ -145,6 +122,18 @@
       text-shadow: 0 0 5px #a28dbc;
     }
 
+    .error {
+      color: #ff6b6b;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    .success {
+      color: #98f5c9;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
     @keyframes fadeIn {
       from { opacity: 0; }
       to   { opacity: 1; }
@@ -166,19 +155,50 @@
   </style>
 </head>
 <body>
-  <form>
+  <form id="loginForm">
     <h2>SiteRat Login</h2>
     <div class="input-wrapper">
       <label for="username">Username</label>
-      <input type="text" id="username" name="username" required />
+      <input type="text" id="username" required>
     </div>
     <div class="input-wrapper">
       <label for="password">Password</label>
-      <input type="password" id="password" name="password" required />
+      <input type="password" id="password" required>
     </div>
     <button type="submit">Login</button>
+    <p id="loginMessage"></p>
     <div class="separator"><span>OR</span></div>
     <p>Don't have an account? <a href="register.html">Sign up</a></p>
   </form>
+
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value.trim();
+      const message = document.getElementById('loginMessage');
+
+      const users = JSON.parse(localStorage.getItem('users') || '{}');
+
+      if (!users[username]) {
+        message.textContent = "❌ This username is not registered.";
+        message.className = "error";
+        return;
+      }
+
+      if (users[username].password !== password) {
+        message.textContent = "❌ You entered a wrong password.";
+        message.className = "error";
+        return;
+      }
+
+      message.textContent = `✅ Login successful. Welcome back, ${username}!`;
+      message.className = "success";
+
+      // Optional redirect
+      // setTimeout(() => window.location.href = "dashboard.html", 1500);
+    });
+  </script>
 </body>
 </html>
