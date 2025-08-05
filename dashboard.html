@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Account - Site Rat</title>
+  <title>Dashboard - Site Rat</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
     * {
@@ -18,8 +18,10 @@
       height: 100vh;
       background: #1a032e;
       color: #fff;
+      overflow: hidden;
     }
 
+    /* Sidebar */
     .sidebar {
       width: 240px;
       background: #0e0918;
@@ -65,6 +67,9 @@
       cursor: pointer;
       font-weight: 600;
       transition: background 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .sidebar .nav button:hover {
@@ -81,74 +86,47 @@
       border: none;
       font-size: 0.95rem;
       cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
 
+    /* Main content */
     .main {
       flex: 1;
-      padding: 3rem;
-      background: linear-gradient(to bottom right, #2a0a4d, #1a032e);
-      overflow-y: auto;
-    }
-
-    .account-container {
-      max-width: 500px;
-      margin: 0 auto;
-      background: #1f0a33;
+      position: relative;
       padding: 2rem;
-      border-radius: 12px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.4);
+      background: linear-gradient(to bottom right, #2a0a4d, #1a032e);
     }
 
-    .account-container h2 {
-      margin-bottom: 1.5rem;
-      color: #cba6f7;
-      font-size: 1.8rem;
-    }
-
-    .form-group {
-      margin-bottom: 1rem;
-    }
-
-    .form-group label {
-      display: block;
-      margin-bottom: 0.5rem;
-      color: #ddd;
-    }
-
-    .form-group input {
-      width: 100%;
-      padding: 10px;
-      border: none;
-      border-radius: 8px;
-      background: #2e144d;
+    .welcome {
+      font-size: 2rem;
+      font-weight: bold;
       color: #fff;
     }
 
-    .form-group input:focus {
-      outline: 2px solid #cba6f7;
+    .welcome span {
+      color: #cba6f7;
     }
 
-    .form-actions {
-      margin-top: 1.5rem;
-      display: flex;
-      gap: 1rem;
+    /* Background effect */
+    .background-effect {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      background: url('https://raw.githubusercontent.com/JulianPrieber/lattice-background/master/assets/lattice-dark-purple.svg');
+      background-size: cover;
+      opacity: 0.15;
+      pointer-events: none;
     }
 
-    .form-actions button {
-      flex: 1;
-      background: #cba6f7;
-      border: none;
-      padding: 10px;
-      border-radius: 8px;
-      font-weight: bold;
-      color: #1a032e;
-      cursor: pointer;
-      transition: background 0.3s;
+    .main-content {
+      position: relative;
+      z-index: 1;
     }
 
-    .form-actions button:hover {
-      background: #b28cd1;
-    }
   </style>
 </head>
 <body>
@@ -160,7 +138,7 @@
         <span>Site Rat</span>
       </div>
       <div class="nav">
-        <button onclick="location.href='dashboard.html'">🏠 Dashboard</button>
+        <button>👤 Account</button>
       </div>
     </div>
     <div class="bottom">
@@ -169,24 +147,9 @@
   </div>
 
   <div class="main">
-    <div class="account-container">
-      <h2>Account Settings</h2>
-      <div class="form-group">
-        <label for="username">Username</label>
-        <input type="text" id="username" value="SiteRatUser" />
-      </div>
-      <div class="form-group">
-        <label for="email">Email Address</label>
-        <input type="email" id="email" value="user@siterat.com" />
-      </div>
-      <div class="form-group">
-        <label for="password">Change Password</label>
-        <input type="password" id="password" placeholder="••••••••" />
-      </div>
-      <div class="form-actions">
-        <button onclick="updateAccount()">Update</button>
-        <button onclick="changePassword()">Change Password</button>
-      </div>
+    <div class="background-effect"></div>
+    <div class="main-content">
+      <h1 class="welcome">Welcome, <span id="usernameDisplay">SiteRat</span></h1>
     </div>
   </div>
 
@@ -195,20 +158,12 @@
     if (!user) {
       window.location.href = "login.html";
     } else {
-      document.getElementById("username").value = user;
+      document.getElementById("usernameDisplay").textContent = user;
     }
 
     function logout() {
       localStorage.removeItem("siterat_loggedInUser");
       window.location.href = "login.html";
-    }
-
-    function updateAccount() {
-      alert("Account updated (demo only)");
-    }
-
-    function changePassword() {
-      alert("Password change (demo only)");
     }
   </script>
 
