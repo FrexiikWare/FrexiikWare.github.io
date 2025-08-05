@@ -2,9 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Register - SiteRat</title>
+  <title>Register</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
+    /* Same styles as your login page */
     * {
       box-sizing: border-box;
       margin: 0;
@@ -15,7 +16,7 @@
 
     body {
       background-color: #0b0e1a;
-      background-image:
+      background-image: 
         linear-gradient(90deg, rgba(203,166,247,0.03) 1px, transparent 1px),
         linear-gradient(rgba(203,166,247,0.03) 1px, transparent 1px);
       background-size: 40px 40px;
@@ -24,6 +25,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      animation: fadeIn 1s ease forwards;
       backdrop-filter: blur(2px);
     }
 
@@ -37,6 +39,7 @@
       width: 100%;
       box-shadow: 0 0 40px 2px #cba6f733;
       text-align: center;
+      animation: slideFadeIn 0.8s ease forwards;
     }
 
     h2 {
@@ -44,6 +47,7 @@
       font-size: 2rem;
       color: #cba6f7;
       text-shadow: 0 0 8px #cba6f799;
+      animation: glowPulse 3s ease-in-out infinite;
     }
 
     .input-wrapper {
@@ -70,6 +74,11 @@
       box-shadow: 0 0 6px #cba6f72a;
     }
 
+    .input-wrapper input:focus {
+      box-shadow: 0 0 12px #cba6f799;
+      background-color: #2a2d45;
+    }
+
     button {
       background: #cba6f7;
       color: #0b0e1a;
@@ -81,6 +90,36 @@
       box-shadow: 0 0 10px #cba6f755;
       font-weight: 600;
       width: 100%;
+      transition: transform 0.2s ease, box-shadow 0.3s ease;
+    }
+
+    button:hover {
+      background: #a28dbc;
+      color: #000;
+      transform: scale(1.02);
+      box-shadow: 0 0 12px #a28dbcaa;
+    }
+
+    button:active {
+      transform: scale(0.98);
+    }
+
+    p {
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      color: #999;
+    }
+
+    a {
+      color: #ead1dc;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+
+    a:hover {
+      text-decoration: underline;
+      color: #cba6f7;
     }
 
     .separator {
@@ -104,76 +143,47 @@
       color: #a28dbc;
       font-size: 0.85rem;
       font-weight: 600;
+      text-shadow: 0 0 5px #a28dbc;
     }
 
-    .error {
-      color: #ff6b6b;
-      margin-top: 10px;
-      font-weight: bold;
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
     }
 
-    .success {
-      color: #98f5c9;
-      margin-top: 10px;
-      font-weight: bold;
+    @keyframes slideFadeIn {
+      from { opacity: 0; transform: translateY(15px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes glowPulse {
+      0%, 100% {
+        text-shadow: 0 0 8px #cba6f799;
+      }
+      50% {
+        text-shadow: 0 0 16px #cba6f7dd;
+      }
     }
   </style>
 </head>
 <body>
-  <form id="registerForm">
-    <h2>SiteRat Register</h2>
+  <form>
+    <h2>Create Account</h2>
     <div class="input-wrapper">
       <label for="username">Username</label>
-      <input type="text" id="username" required>
+      <input type="text" id="username" name="username" required />
     </div>
     <div class="input-wrapper">
       <label for="password">Password</label>
-      <input type="password" id="password" required>
+      <input type="password" id="password" name="password" required />
     </div>
     <div class="input-wrapper">
       <label for="license">License Key</label>
-      <input type="text" id="license" required>
+      <input type="text" id="license" name="license" required />
     </div>
     <button type="submit">Register</button>
-    <p id="message"></p>
     <div class="separator"><span>OR</span></div>
-    <p>Already have an account? <a href="index.html">Login</a></p>
+    <p>Already have an account? <a href="index.html">Login here</a></p>
   </form>
-
-  <script>
-    const validLicenseKeys = ["SR-TAIY-1492", "SR-OTQV-5291", "SR-LPYO-9215"];
-
-    document.getElementById('registerForm').addEventListener('submit', function(event) {
-      event.preventDefault();
-
-      const username = document.getElementById('username').value.trim();
-      const password = document.getElementById('password').value.trim();
-      const license = document.getElementById('license').value.trim();
-      const message = document.getElementById('message');
-
-      const users = JSON.parse(localStorage.getItem('users') || '{}');
-
-      if (!validLicenseKeys.includes(license)) {
-        message.textContent = "❌ Invalid license key.";
-        message.className = "error";
-        return;
-      }
-
-      if (users[username]) {
-        message.textContent = "❌ Username already registered.";
-        message.className = "error";
-        return;
-      }
-
-      users[username] = { password };
-      localStorage.setItem('users', JSON.stringify(users));
-
-      message.textContent = `✅ Registration successful. Welcome, ${username}!`;
-      message.className = "success";
-
-      // Optional redirect:
-      // setTimeout(() => window.location.href = "index.html", 1500);
-    });
-  </script>
 </body>
 </html>
