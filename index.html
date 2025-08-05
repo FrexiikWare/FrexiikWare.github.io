@@ -215,7 +215,10 @@
       loginMessage.style.color = "#7CFC00";
       loginMessage.textContent = "✅ Successfully logged in Site Rat!";
 
-      // Redirect after short delay
+      // ✅ Store login session state
+      localStorage.setItem("siterat_loggedInUser", username);
+
+      // ✅ Redirect to dashboard
       setTimeout(() => {
         window.location.href = "dashboard.html";
       }, 1000);
