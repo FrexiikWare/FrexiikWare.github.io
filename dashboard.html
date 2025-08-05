@@ -1,104 +1,172 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Dashboard - SiteRat</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard - Site Rat</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    /* (same styles as before, adjusted for consistency) */
-    body {
-      background-color: #0b0e1a;
-      background-image:
-        linear-gradient(90deg, rgba(203,166,247,0.03) 1px, transparent 1px),
-        linear-gradient(rgba(203,166,247,0.03) 1px, transparent 1px);
-      background-size: 40px 40px;
-      color: #cba6f7;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 2rem;
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
       font-family: 'Inter', sans-serif;
     }
 
-    h1 {
-      font-size: 2.5rem;
-      text-shadow: 0 0 12px #cba6f799;
-      animation: glowPulse 3s ease-in-out infinite;
-      margin-bottom: 1rem;
+    body {
+      display: flex;
+      height: 100vh;
+      background: #1a032e;
+      color: #fff;
+      overflow: hidden;
     }
 
-    .card {
-      background: rgba(21, 24, 39, 0.15);
-      border: 1px solid rgba(203, 166, 247, 0.25);
-      backdrop-filter: blur(10px);
-      border-radius: 16px;
-      padding: 2rem;
-      max-width: 600px;
-      width: 100%;
-      box-shadow: 0 0 40px 2px #cba6f733;
-      text-align: center;
+    /* Sidebar */
+    .sidebar {
+      width: 240px;
+      background: #0e0918;
+      padding: 2rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 2px 0 20px #00000033;
     }
 
-    .card p {
-      color: #9b9dc4;
-      margin-bottom: 1rem;
+    .sidebar .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 2rem;
     }
 
-    button {
+    .sidebar .logo img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+    }
+
+    .sidebar .logo span {
+      font-weight: bold;
+      font-size: 1.2rem;
+      color: #cba6f7;
+    }
+
+    .sidebar .nav {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .sidebar .nav button {
       background: #cba6f7;
-      color: #0b0e1a;
-      padding: 10px 16px;
-      font-size: 1rem;
+      color: #1a032e;
       border: none;
-      border-radius: 10px;
+      padding: 10px;
+      font-size: 1rem;
+      border-radius: 8px;
       cursor: pointer;
-      box-shadow: 0 0 10px #cba6f755;
       font-weight: 600;
-      margin-top: 1rem;
+      transition: background 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    button:hover {
-      background: #a28dbc;
-      color: #000;
-      transform: scale(1.02);
-      box-shadow: 0 0 12px #a28dbcaa;
+    .sidebar .nav button:hover {
+      background: #b28cd1;
     }
 
-    @keyframes glowPulse {
-      0%, 100% {
-        text-shadow: 0 0 8px #cba6f799;
-      }
-      50% {
-        text-shadow: 0 0 16px #cba6f7dd;
-      }
+    .sidebar .bottom {
+      padding-top: 2rem;
     }
+
+    .sidebar .bottom button {
+      background: transparent;
+      color: #f87171;
+      border: none;
+      font-size: 0.95rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Main content */
+    .main {
+      flex: 1;
+      position: relative;
+      padding: 2rem;
+      background: linear-gradient(to bottom right, #2a0a4d, #1a032e);
+    }
+
+    .welcome {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #fff;
+    }
+
+    .welcome span {
+      color: #cba6f7;
+    }
+
+    /* Background effect */
+    .background-effect {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      background: url('https://raw.githubusercontent.com/JulianPrieber/lattice-background/master/assets/lattice-dark-purple.svg');
+      background-size: cover;
+      opacity: 0.15;
+      pointer-events: none;
+    }
+
+    .main-content {
+      position: relative;
+      z-index: 1;
+    }
+
   </style>
 </head>
 <body>
-  <h1>Welcome to SiteRat 🐀</h1>
-  <div class="card">
-    <p>Hello, <strong><span id="usernameDisplay"></span></strong>! You are now logged in.</p>
-    <p>Here you can manage your account, settings, and more.</p>
-    <button onclick="logout()">Logout</button>
+
+  <div class="sidebar">
+    <div>
+      <div class="logo">
+        <img src="https://i.imgur.com/6NKPrhO.png" alt="Logo" />
+        <span>Site Rat</span>
+      </div>
+      <div class="nav">
+        <button onclick="alert('Account page soon')">👤 Account</button>
+      </div>
+    </div>
+    <div class="bottom">
+      <button onclick="logout()">🚪 Log out</button>
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="background-effect"></div>
+    <div class="main-content">
+      <h1 class="welcome">Welcome, <span id="usernameDisplay">SiteRat</span></h1>
+    </div>
   </div>
 
   <script>
-    const loggedInUser = localStorage.getItem("siterat_loggedInUser");
-
-    if (!loggedInUser) {
-      // Not logged in? Redirect to login.
+    // Check if user is logged in
+    const user = localStorage.getItem("siterat_loggedInUser");
+    if (!user) {
       window.location.href = "login.html";
     } else {
-      // Show username
-      document.getElementById("usernameDisplay").textContent = loggedInUser;
+      document.getElementById("usernameDisplay").textContent = user;
     }
 
     function logout() {
       localStorage.removeItem("siterat_loggedInUser");
-      window.location.href = "index.html";
+      window.location.href = "login.html";
     }
   </script>
+
 </body>
 </html>
