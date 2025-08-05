@@ -1,0 +1,216 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Register - SiteRat</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+      transition: all 0.3s ease;
+    }
+
+    body {
+      background-color: #0b0e1a;
+      background-image: 
+        linear-gradient(90deg, rgba(203,166,247,0.03) 1px, transparent 1px),
+        linear-gradient(rgba(203,166,247,0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      color: #cba6f7;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      backdrop-filter: blur(2px);
+    }
+
+    form {
+      background: rgba(21, 24, 39, 0.15);
+      border: 1px solid rgba(203, 166, 247, 0.25);
+      backdrop-filter: blur(10px);
+      border-radius: 16px;
+      padding: 2rem;
+      max-width: 400px;
+      width: 100%;
+      box-shadow: 0 0 40px 2px #cba6f733;
+      text-align: center;
+    }
+
+    h2 {
+      margin-bottom: 1rem;
+      font-size: 2rem;
+      color: #cba6f7;
+      text-shadow: 0 0 8px #cba6f799;
+      animation: glowPulse 3s ease-in-out infinite;
+    }
+
+    .input-wrapper {
+      margin-bottom: 1.2rem;
+      text-align: left;
+    }
+
+    .input-wrapper label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: #9b9dc4;
+      font-size: 0.9rem;
+    }
+
+    .input-wrapper input {
+      width: 100%;
+      padding: 10px;
+      background: #222435;
+      border: none;
+      border-radius: 8px;
+      color: #ddd;
+      font-size: 16px;
+      outline: none;
+      box-shadow: 0 0 6px #cba6f72a;
+    }
+
+    .input-wrapper input:focus {
+      box-shadow: 0 0 12px #cba6f799;
+      background-color: #2a2d45;
+    }
+
+    button {
+      background: #cba6f7;
+      color: #0b0e1a;
+      padding: 10px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 0 10px #cba6f755;
+      font-weight: 600;
+      width: 100%;
+    }
+
+    button:hover {
+      background: #a28dbc;
+      color: #000;
+      transform: scale(1.02);
+      box-shadow: 0 0 12px #a28dbcaa;
+    }
+
+    button:active {
+      transform: scale(0.98);
+    }
+
+    p {
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      color: #999;
+    }
+
+    a {
+      color: #ead1dc;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    a:hover {
+      text-decoration: underline;
+      color: #cba6f7;
+    }
+
+    .separator {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 20px 0;
+    }
+
+    .separator::before,
+    .separator::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: #a28dbc;
+      margin: 0 10px;
+      opacity: 0.4;
+    }
+
+    .separator span {
+      color: #a28dbc;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-shadow: 0 0 5px #a28dbc;
+    }
+
+    #message {
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    @keyframes glowPulse {
+      0%, 100% {
+        text-shadow: 0 0 8px #cba6f799;
+      }
+      50% {
+        text-shadow: 0 0 16px #cba6f7dd;
+      }
+    }
+  </style>
+</head>
+<body>
+  <form id="registerForm">
+    <h2>SiteRat Register</h2>
+    <div class="input-wrapper">
+      <label for="username">Username</label>
+      <input type="text" id="username" name="username" required />
+    </div>
+    <div class="input-wrapper">
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" required />
+    </div>
+    <div class="input-wrapper">
+      <label for="invite">Invite Key</label>
+      <input type="text" id="invite" name="invite" required />
+    </div>
+    <button type="submit">Register</button>
+    <div id="message"></div>
+    <div class="separator"><span>OR</span></div>
+    <p>Already have an account? <a href="index.html">Click here!</a></p>
+  </form>
+
+  <script>
+    const form = document.getElementById("registerForm");
+    const message = document.getElementById("message");
+    const validKeys = ["SR-FAYR-1594", "SR-LQDW-7285", "SR-ZMXC-3810"];
+
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+      const username = document.getElementById("username").value.trim();
+      const password = document.getElementById("password").value;
+      const invite = document.getElementById("invite").value.trim().toUpperCase();
+
+      if (!validKeys.includes(invite)) {
+        message.style.color = "#ff6b6b";
+        message.textContent = "❌ Invalid invite key";
+        return;
+      }
+
+      if (password.length < 8) {
+        message.style.color = "#ff6b6b";
+        message.textContent = "❌ Password must have atleast 8 letters";
+        return;
+      }
+
+      message.style.color = "#7CFC00";
+      message.textContent = "✅ Successfully registered";
+
+      let users = JSON.parse(localStorage.getItem("siterat_users") || "[]");
+      users.push({ username, password });
+      localStorage.setItem("siterat_users", JSON.stringify(users));
+
+      form.reset();
+    });
+  </script>
+</body>
+</html>
