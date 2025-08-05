@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - SiteRat</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(to bottom, #1c0e2d, #2c0c45);
+      color: white;
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .sidebar {
+      width: 220px;
+      background-color: #140120;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border-right: 1px solid #3e0a64;
+    }
+
+    .sidebar h1 {
+      font-size: 1.2rem;
+      color: #ff4cdf;
+      margin-bottom: 2rem;
+    }
+
+    .nav {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .nav a {
+      background: #6a0dad;
+      padding: 10px;
+      border-radius: 8px;
+      text-align: center;
+      text-decoration: none;
+      color: white;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+
+    .nav a:hover {
+      background: #8f3bff;
+    }
+
+    .logout {
+      color: #ff4c4c;
+      font-size: 0.9rem;
+      cursor: pointer;
+      margin-top: auto;
+    }
+
+    .main {
+      flex: 1;
+      padding: 40px;
+      background: radial-gradient(circle at top left, rgba(255,255,255,0.05), transparent), #1c0e2d;
+      overflow-y: auto;
+    }
+
+    .main h2 {
+      font-size: 2rem;
+      color: #ffffff;
+      margin-bottom: 20px;
+    }
+
+    .card {
+      background-color: #140120;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 0 15px rgba(255, 0, 255, 0.1);
+      max-width: 600px;
+    }
+
+    .card h3 {
+      color: #b877ff;
+      margin-bottom: 10px;
+    }
+
+    .input-group {
+      margin-bottom: 15px;
+    }
+
+    .input-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 0.9rem;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+      background: #2a1b3d;
+      color: white;
+    }
+
+    .btn {
+      background: #bb60ff;
+      padding: 12px;
+      border-radius: 8px;
+      text-align: center;
+      border: none;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    .btn:hover {
+      background: #d18bff;
+    }
+  </style>
+</head>
+<body>
+  <div class="sidebar">
+    <div>
+      <h1>SiteRat</h1>
+      <div class="nav">
+        <a href="#">Account</a>
+        <a href="#">Settings</a>
+      </div>
+    </div>
+    <div class="logout" onclick="logout()">🔒 Log out</div>
+  </div>
+
+  <div class="main">
+    <h2 id="welcomeMessage">Welcome, User</h2>
+    <div class="card">
+      <h3>👤 Account Information</h3>
+      <div class="input-group">
+        <label>Username</label>
+        <input type="text" id="username" disabled>
+      </div>
+
+      <h3>💬 Discord Integration</h3>
+      <div class="input-group">
+        <input type="text" placeholder="Enter your Discord ID (19 digits)">
+      </div>
+
+      <h3>🔒 Change Password</h3>
+      <div class="input-group">
+        <input type="password" placeholder="Current Password">
+      </div>
+      <div class="input-group">
+        <input type="password" placeholder="New Password">
+      </div>
+      <div class="input-group">
+        <input type="password" placeholder="Confirm New Password">
+      </div>
+      <button class="btn">Update Password</button>
+    </div>
+  </div>
+
+  <script>
+    // Set dynamic user info
+    const user = localStorage.getItem("loggedInUser") || "User";
+    document.getElementById("welcomeMessage").innerText = `Welcome, ${user}`;
+    document.getElementById("username").value = user;
+
+    function logout() {
+      localStorage.removeItem("loggedInUser");
+      window.location.href = "index.html";
+    }
+  </script>
+</body>
+</html>
