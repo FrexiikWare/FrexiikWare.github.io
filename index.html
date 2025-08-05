@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Leakseek - Login</title>
+  <style>
+    body {
+      background: #0e0e1b;
+      color: #fff;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .form-box {
+      background: #1a1a2e;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 0 30px rgba(178, 128, 255, 0.2);
+      width: 300px;
+      text-align: center;
+    }
+
+    h2 {
+      color: #d4bfff;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 6px;
+      background: #2c2c3d;
+      color: white;
+    }
+
+    button {
+      background: #d4bfff;
+      color: black;
+      border: none;
+      width: 100%;
+      padding: 12px;
+      border-radius: 6px;
+      margin-top: 10px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .or, .register-link {
+      margin-top: 20px;
+      color: #777;
+    }
+
+    .register-link a {
+      color: #d4bfff;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .message {
+      margin-top: 15px;
+      font-size: 14px;
+    }
+
+    .error {
+      color: #ff5e5e;
+    }
+
+    .success {
+      color: #80ff9f;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-box">
+    <h2>Leakseek</h2>
+    <form id="loginForm">
+      <input type="text" id="username" placeholder="Username" required />
+      <input type="password" id="password" placeholder="Password" required />
+      <button type="submit">Login</button>
+    </form>
+    <div class="message" id="message"></div>
+    <div class="or">──────── OR ────────</div>
+    <div class="register-link">No account? <a href="register.html">Click here!</a></div>
+  </div>
+
+  <script>
+    const form = document.getElementById("loginForm");
+    const message = document.getElementById("message");
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const username = document.getElementById("username").value.trim();
+      const password = document.getElementById("password").value.trim();
+
+      const users = JSON.parse(localStorage.getItem("users") || "{}");
+
+      if (!users[username]) {
+        message.textContent = "❌ This account doesn't exist";
+        message.className = "message error";
+        return;
+      }
+
+      if (users[username] !== password) {
+        message.textContent = "❌ Incorrect Password";
+        message.className = "message error";
+        return;
+      }
+
+      message.textContent = `✅ Successfully logged in, Welcome back ${username}`;
+      message.className = "message success";
+    });
+  </script>
+</body>
+</html>
