@@ -184,5 +184,27 @@
     <div class="separator"><span>OR</span></div>
     <p>Already have an account? <a href="index.html">Back to Login</a></p>
   </form>
+
+  <script>
+    const validLicenseKeys = ["SR-AYPR-5183", "SR-TARO-8194", "SR-PAEI-3719"]; // Replace with your actual keys
+
+    document.getElementById('registerForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value.trim();
+      const license = document.getElementById('license').value.trim();
+
+      if (!validLicenseKeys.includes(license)) {
+        alert("❌ Invalid license key!");
+        return;
+      }
+
+      // Simulate successful registration
+      alert(`✅ Registration successful for ${username}`);
+      // Redirect or clear form if desired
+      // window.location.href = "index.html";
+    });
+  </script>
 </body>
-</html> 
+</html>
