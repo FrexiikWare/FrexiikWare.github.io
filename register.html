@@ -1,64 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>Leakseek - Register</title>
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
-      background: #0e0e1b;
-      color: #fff;
-      font-family: 'Segoe UI', sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
       margin: 0;
+      padding: 0;
+      background: #0e0e1b;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
     }
 
     .form-box {
       background: #1a1a2e;
-      padding: 40px;
+      padding: 35px 40px;
       border-radius: 12px;
-      box-shadow: 0 0 30px rgba(178, 128, 255, 0.2);
-      width: 300px;
+      box-shadow: 0 0 30px rgba(178, 128, 255, 0.15);
+      width: 320px;
       text-align: center;
     }
 
     h2 {
       color: #d4bfff;
+      font-size: 24px;
+      margin-bottom: 30px;
+      letter-spacing: 1px;
     }
 
     input {
       width: 100%;
-      padding: 12px;
-      margin: 10px 0;
+      padding: 11px 14px;
+      margin: 8px 0;
       border: none;
       border-radius: 6px;
       background: #2c2c3d;
-      color: white;
+      color: #fff;
+      font-size: 14px;
     }
 
     button {
       background: #d4bfff;
-      color: black;
-      border: none;
-      width: 100%;
+      color: #000;
       padding: 12px;
+      width: 100%;
+      border: none;
       border-radius: 6px;
-      margin-top: 10px;
       font-weight: bold;
+      font-size: 15px;
       cursor: pointer;
+      margin-top: 12px;
+      transition: background 0.3s;
     }
 
-    .or, .login-link {
-      margin-top: 20px;
-      color: #777;
+    button:hover {
+      background: #c0aaff;
+    }
+
+    .or {
+      margin: 20px 0;
+      color: #666;
+      font-size: 13px;
+    }
+
+    .login-link {
+      color: #999;
+      font-size: 13px;
     }
 
     .login-link a {
       color: #d4bfff;
-      text-decoration: none;
       font-weight: bold;
+      text-decoration: none;
     }
 
     .message {
@@ -84,13 +104,17 @@
       <input type="text" id="inviteKey" placeholder="Invite Key" required />
       <button type="submit">Register</button>
     </form>
+
     <div class="message" id="message"></div>
-    <div class="or">──────── OR ────────</div>
-    <div class="login-link">Already have an account? <a href="index.html">Click here!</a></div>
+
+    <div class="or">────────── OR ──────────</div>
+    <div class="login-link">
+      Already have an account? <a href="login.html">Click here!</a>
+    </div>
   </div>
 
   <script>
-    const validKeys = ["SR-AYRI-5192", "ZX-MNOP-1234", "KL-QWER-7777"];
+    const validKeys = ["SR-AYRI-5192", "SR-YTIQ-8610", "SR-BIYH-6143"];
     const form = document.getElementById("registerForm");
     const message = document.getElementById("message");
 
@@ -113,7 +137,7 @@
         return;
       }
 
-      // Save to localStorage
+      // Store in localStorage
       const users = JSON.parse(localStorage.getItem("users") || "{}");
 
       users[username] = password;
