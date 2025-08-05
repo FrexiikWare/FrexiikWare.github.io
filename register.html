@@ -1,22 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Leakseek - Register</title>
   <style>
-    * {
-      box-sizing: border-box;
-    }
-
     body {
-      margin: 0;
-      padding: 0;
       background: #0e0e1b;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #fff;
+      font-family: 'Segoe UI', sans-serif;
       display: flex;
-      align-items: center;
       justify-content: center;
+      align-items: center;
       height: 100vh;
+      margin: 0;
     }
 
     .form-box {
@@ -30,50 +26,47 @@
 
     h2 {
       color: #d4bfff;
-      margin-bottom: 30px;
     }
 
-    input[type="text"],
-    input[type="password"] {
+    input {
       width: 100%;
       padding: 12px;
       margin: 10px 0;
       border: none;
       border-radius: 6px;
       background: #2c2c3d;
-      color: #fff;
+      color: white;
     }
 
     button {
       background: #d4bfff;
-      color: #000;
-      padding: 12px;
-      width: 100%;
+      color: black;
       border: none;
+      width: 100%;
+      padding: 12px;
       border-radius: 6px;
+      margin-top: 10px;
       font-weight: bold;
       cursor: pointer;
-      margin-top: 15px;
     }
 
-    .or {
-      margin: 20px 0;
+    .or, .login-link {
+      margin-top: 20px;
       color: #777;
-    }
-
-    .login-link {
-      color: #fff;
     }
 
     .login-link a {
       color: #d4bfff;
-      font-weight: bold;
       text-decoration: none;
+      font-weight: bold;
     }
 
     .message {
       margin-top: 15px;
       font-size: 14px;
+    }
+
+    .error {
       color: #ff5e5e;
     }
 
@@ -91,45 +84,43 @@
       <input type="text" id="inviteKey" placeholder="Invite Key" required />
       <button type="submit">Register</button>
     </form>
-
     <div class="message" id="message"></div>
-
-    <div class="or">───────── OR ─────────</div>
-    <div class="login-link">
-      Already have an account? <a href="login.html">Click here!</a>
-    </div>
+    <div class="or">──────── OR ────────</div>
+    <div class="login-link">Already have an account? <a href="login.html">Click here!</a></div>
   </div>
 
   <script>
-    const form = document.getElementById('registerForm');
-    const message = document.getElementById('message');
+    const validKeys = ["SR-AYRI-5192", "ZX-MNOP-1234", "KL-QWER-7777"];
+    const form = document.getElementById("registerForm");
+    const message = document.getElementById("message");
 
-    const validKeys = [
-      "SR-AYRI-5192",
-      "ZX-MNOP-1234",
-      "KL-QWER-7777"
-    ];
-
-    form.addEventListener('submit', function (e) {
+    form.addEventListener("submit", function (e) {
       e.preventDefault();
 
-      const password = document.getElementById('password').value.trim();
-      const inviteKey = document.getElementById('inviteKey').value.trim();
+      const username = document.getElementById("username").value.trim();
+      const password = document.getElementById("password").value.trim();
+      const inviteKey = document.getElementById("inviteKey").value.trim();
 
       if (!validKeys.includes(inviteKey)) {
         message.textContent = "❌ Incorrect Invite Key";
-        message.classList.remove("success");
+        message.className = "message error";
         return;
       }
 
       if (password.length < 8) {
         message.textContent = "❌ Password must have at least 8 letters";
-        message.classList.remove("success");
+        message.className = "message error";
         return;
       }
 
+      // Save to localStorage
+      const users = JSON.parse(localStorage.getItem("users") || "{}");
+
+      users[username] = password;
+      localStorage.setItem("users", JSON.stringify(users));
+
       message.textContent = "✅ Successfully registered";
-      message.classList.add("success");
+      message.className = "message success";
     });
   </script>
 </body>
