@@ -1,0 +1,4 @@
+const APPROVED_LICENSE_KEYS = [
+  "SC-1942-APRY",
+  "SC-5128-HEPF"
+];
